@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecetaCard from './recetaCard';
+import '../styles/recetaListStyle.css'
+
 
 const RecetaList = () => {
   const [recetas, setRecetas] = useState([]);
@@ -15,26 +17,16 @@ const RecetaList = () => {
     axios.get('http://localhost:5000/api/recetas')
       .then(response => {
         setRecetas(response.data);
+        setCategories(response.data.map((receta)=> receta.category));
         setFilteredRecetas(response.data);
         setLoading(false);
         })
         .catch((error)=> {
-            console.error("Error de busqueda", error);
             setError("No se pudieron cargar las recetas");
             setLoading(false);
         });
 
-    axios.get('http://localhost:5000/api/recetas')
-        .then(response => {
-            setRecetas(response.data);
-            setFilteredRecetas(response.data);
-            setLoading(false);
-        })
-        .catch((error)=> {
-            console.error("Error de busqueda", error);
-            setError("No se pudieron cargar las recetas");
-            setLoading(false);
-        });
+    
     }, []);
 
     const handleSearch = (event) => {
@@ -46,7 +38,7 @@ const RecetaList = () => {
     const handleCategoryChange = (event) => {
         const query = event.target.value.toLowerCase();
         setSearchQuery(query);
-        filterRecetas(searchQuery, category);
+        filterRecetas(null, query);
 
     };
 
@@ -64,7 +56,7 @@ const RecetaList = () => {
         }
 
         if(category) {
-            filtered = filtered.filter((receta) => receta.category === category);
+            filtered = filtered.filter((receta) => receta.category.toLowerCase() === category);
         }
 
         setFilteredRecetas(filtered);
@@ -73,41 +65,33 @@ const RecetaList = () => {
     
 
     if(loading) return <p className="text-center">Cargando recetas...</p>
-    if(error) return <p className="text-center text-red-500">{error}</p>
+    if(error) return <p className="text-center">{error}</p>
 
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container">
       {/* búsqueda y filtro */}
-      <div className="flex flex-col md:flex-row gap-4 mb-4">
+      <div className="container-primero">
         <input type="text" placeholder="Buscar recetas..." value={searchQuery}
-                onChange={handleSearch} className="w-full md:w-2/3 p-2 border border-gray-300 rounded"
-        />
-        <select value={selectedCategory} onChange={handleCategoryChange}
-                className="w-full md:w-1/3 p-2 border border-gray-300 rounded"
-        >
+                onChange={handleSearch}/>
+        <select value={selectedCategory} onChange={handleCategoryChange}>
           <option value="">Todas las categorías</option>
           {categories.map((category) => (
-            <option key={category.id} value={category.name}>
-              {category.name}
+            <option value={category}>
+              {category}
             </option>
           ))}
         </select>
 
-        <button
-          onClick={handleClearFilters}
-          className="p-2 bg-gray-300 text-black rounded hover:bg-gray-400 transition"
-        >
-          Limpiar
-        </button>
+        <button onClick={handleClearFilters}>Limpiar</button>
       </div>
 
       {/* Lista de recetas */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="container-segundo">
         {filteredRecetas.length > 0 ? (
           filteredRecetas.map((receta) => <RecetaCard key={receta.id} receta={receta} />)
         ) : (
-          <p className="text-center col-span-full">No hay recetas disponibles.</p>
+          <p>No hay recetas disponibles</p>
         )}
       </div>
     </div>

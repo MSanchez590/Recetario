@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/dbConnection');
 
-const Receta = sequelize.define('Receta', {
+const Receta = sequelize.define('receta', {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -16,14 +16,17 @@ const Receta = sequelize.define('Receta', {
         allowNull: false,
       },
       ingredients: {
-        type: DataTypes.TEXT, // Se almacenarán como texto separado por comas
+        type: DataTypes.STRING, // Se almacenarán como texto separado por comas
         allowNull: false,
         get() {
+            console.log(this.getDataValue("ingredients"))
+            console.log("llamo a get")
+
           return this.getDataValue("ingredients")?.split(","); // Convertir a array al recuperar
         },
         set(value) {
-            
-          this.setDataValue("ingredients", value); // Convertir a texto al guardar
+            console.log("llamo a set")
+          this.setDataValue("ingredients", value.join(',')); // Convertir a texto al guardar
         },
       },
       instructions: {
@@ -47,5 +50,6 @@ const Receta = sequelize.define('Receta', {
         defaultValue: DataTypes.NOW,
       },
     });
+    Receta.sync({alter : false});
 
 module.exports = Receta;

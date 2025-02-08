@@ -13,7 +13,7 @@ exports.getReceta = async (req, res) => {
 // Obtener recetas por ID
 exports.getRecetaID = async (req, res) => {
     try {
-        const receta = await Receta.findByID(req.params.id);
+        const receta = await Receta.findByPk(req.params.id);
         if(!receta) return res.status(404).json({message: "Receta no encontrada"})
         res.json(receta);
     } catch (error) {
@@ -39,11 +39,11 @@ exports.createReceta = async (req, res) => {
 // Actualizar una receta
 exports.updateReceta = async (req, res) => {
     try {
-      if (req.user.role !== "admin") {
+      /*if (req.user.role !== "admin") {
         return res.status(403).json({ message: "Sin Autorización" });
-      }
+      }*/
   
-      const updatedReceta = await Receta.findByIdAndUpdate(req.params.id, req.body, { new: true });
+      const updatedReceta = await Receta.update(req.body, {where: {id: req.params.id}});
       if (!updatedReceta) return res.status(404).json({ message: "Receta no encontrada" });
   
       res.json(updatedReceta);
@@ -55,9 +55,9 @@ exports.updateReceta = async (req, res) => {
 // Eliminar una receta
 exports.deleteReceta = async (req, res) => {
     try {
-        if (req.user.role !== "admin") {
+        /*if (req.user.role !== "admin") {
             return res.status(403).json({ message: "Sin Autorización" });
-        }
+        }*/
 
         await Receta.destroy({ where: { id: req.params.id } });
         res.json({ message: 'Receta eliminada' });

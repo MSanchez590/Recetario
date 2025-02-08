@@ -1,0 +1,81 @@
+/* Contenedor principal */
+.container {
+    width: 100%;
+    max-width: 1800px;
+    text-align: center;
+    justify-content: center;
+  }
+  
+  /* Búsqueda y filtros */
+  .container-primero {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten si no caben */
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #d0e8ff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  /* Input y select */
+  input[type="text"], select {
+    padding: 10px;
+    width: 100%;
+    max-width: 250px; /* Máximo ancho para que no se expanda demasiado */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 1rem;
+  }
+  
+  /* Input de búsqueda */
+  input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* Select de categorías */
+  select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* Botón de limpiar filtros */
+  button {
+    background-color: #87b55f;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #729646;
+  }
+  
+  /* Contenedor de recetas */
+  .container-segundo {
+    display: flex;
+    flex-wrap: wrap;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 250px;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Mensaje de "No hay recetas" */
+  .container p {
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+  }
+  

@@ -1,0 +1,115 @@
+.container {
+        position: absolute;
+        top: 10%;
+        left: 10%;      
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .container-receta {
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+  }
+
+  .container-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .receta-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    align-self: flex-start;
+  }
+  
+  .container-receta label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #0a0707;
+  }
+  
+  input{
+    margin-bottom: 10px;
+    border: 2px solid;
+    border-color: #0b0b0b;
+    border-radius: 10px;
+  }
+
+  textarea {
+     /* Ajustar ancho de inputs */
+    width: 150px;
+    height: 150px;
+    border: 2px solid;
+    border-color: #040404;
+    box-sizing: content-box;
+    border-radius: 10px;
+    text-align: justify; /* Centrar texto en inputs */
+  }
+  
+  .container a {
+    display: inline-block;
+    background-color: #87b55f;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  @media (min-width: 768px) {
+    .container-receta {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  
+    .receta-image {
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+  
+    .container-receta > * {
+      flex: 1;
+    }
+  }
+  
+  /* Estilos para Modo Edición */
+  .container-receta.editing input,
+  .container-receta.editing textarea {
+    border: 1px solid #010101;
+    background-color: white;
+    cursor: auto;
+  }
+  
+  .container-receta:not(.editing) input,
+  .container-receta:not(.editing) textarea {
+    border: none;
+    background-color: transparent;
+    cursor: default;
+  }
+  
+  /* Ocultar la etiqueta de imagen extra */
+  .container-receta img:nth-child(2) {
+    display: none;
+  }
+  
+  /* Botones Editar y Guardar */
+  .container-receta button {
+    background-color: #87b55f;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 10px;
+    margin: 10px 2px 4px;
+    cursor: pointer;
+  }
